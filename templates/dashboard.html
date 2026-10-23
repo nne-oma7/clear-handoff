@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearHandoff | Support Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <script src="/static/dashboard.js" defer></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">
+            <span class="brand-mark">C</span>
+            <span>
+                <strong>ClearHandoff</strong>
+                <small>Internal workspace</small>
+            </span>
+        </a>
+
+        <div class="topbar-right">
+            <span class="workspace-label">SUPPORT & ENGINEERING</span>
+            <button id="refresh-button" class="secondary-button" type="button">
+                Refresh tickets
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <section class="welcome">
+            <div>
+                <p class="eyebrow">COMPLAINT MANAGEMENT</p>
+                <h1>Ticket dashboard</h1>
+                <p class="muted">
+                    Review customer complaints, identify missing information
+                    and prepare clear engineering handoffs.
+                </p>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <span>Total tickets</span>
+                <strong id="total-count">0</strong>
+                <small>All recorded complaints</small>
+            </article>
+
+            <article class="stat-card">
+                <span>Awaiting information</span>
+                <strong id="awaiting-count">0</strong>
+                <small>More details may be needed</small>
+            </article>
+
+            <article class="stat-card">
+                <span>Under investigation</span>
+                <strong id="investigation-count">0</strong>
+                <small>Currently being investigated</small>
+            </article>
+
+            <article class="stat-card">
+                <span>Resolved</span>
+                <strong id="resolved-count">0</strong>
+                <small>Marked as resolved</small>
+            </article>
+        </section>
+
+        <section class="workspace">
+            <aside class="ticket-sidebar">
+                <div class="section-heading">
+                    <div>
+                        <h2>Complaint inbox</h2>
+                        <p class="muted">Submitted customer tickets</p>
+                    </div>
+                    <span id="visible-count" class="count-pill">0</span>
+                </div>
+
+                <label class="field-label" for="search-input">
+                    Search tickets
+                </label>
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Search reference, name, email or complaint..."
+                >
+
+                <label class="field-label" for="status-filter">
+                    Filter by status
+                </label>
+                <select id="status-filter">
+                    <option value="all">All statuses</option>
+                    <option value="received">Received</option>
+                    <option value="awaiting_information">Awaiting information</option>
+                    <option value="under_investigation">Under investigation</option>
+                    <option value="ready_for_review">Ready for review</option>
+                    <option value="escalated_to_engineering">Escalated to engineering</option>
+                    <option value="resolved">Resolved</option>
+                </select>
+
+                <div id="case-list" class="case-list">
+                    <p class="muted">Loading complaints...</p>
+                </div>
+            </aside>
+
+            <section class="ticket-details">
+                <div id="no-selection" class="empty-state">
+                    <div class="empty-icon">↗</div>
+                    <h2>Select a ticket</h2>
+                    <p>
+                        Choose a complaint from the inbox to view its details
+                        and engineering handoff report.
+                    </p>
+                </div>
+
+                <div id="complaint-detail" hidden>
+                    <div class="detail-header">
+                        <div>
+                            <p class="eyebrow">TICKET DETAILS</p>
+                            <h2 id="detail-title">Customer complaint</h2>
+                            <p id="detail-reference" class="muted"></p>
+                        </div>
+                        <span id="detail-category" class="category-pill"></span>
+                    </div>
+
+                    <div class="metadata-row">
+                        <div>
+                            <span>Submitted</span>
+                            <strong id="detail-date">—</strong>
+                        </div>
+                        <div>
+                            <span>Missing details</span>
+                            <strong id="detail-missing-count">0</strong>
+                        </div>
+                    </div>
+
+                    <section class="report-section">
+                        <h3>Customer contact</h3>
+                        <div id="contact-details" class="content-panel"></div>
+                    </section>
+
+                    <section class="report-section">
+                        <h3>Original customer complaint</h3>
+                        <p class="muted">
+                            The customer's original wording is preserved below.
+                        </p>
+                        <div id="original-message" class="content-panel"></div>
+                    </section>
+
+                    <section class="report-section">
+                        <h3>Customer-provided details</h3>
+                        <div id="provided-details" class="content-panel"></div>
+                    </section>
+
+                    <section class="report-section">
+                        <div class="section-heading">
+                            <h3>Missing information</h3>
+                            <span id="missing-badge" class="count-pill">0</span>
+                        </div>
+                        <div id="missing-details" class="content-panel"></div>
+                    </section>
+
+                    <section class="report-section">
+                        <h3>Investigation note</h3>
+                        <div id="investigation-note" class="content-panel"></div>
+                    </section>
+
+                    <section class="report-section status-section">
+                        <h3>Manage ticket status</h3>
+                        <label class="field-label" for="status-editor-select">
+                            Update status
+                        </label>
+                        <select id="status-editor-select">
+                            <option value="received">Received</option>
+                            <option value="awaiting_information">Awaiting information</option>
+                            <option value="under_investigation">Under investigation</option>
+                            <option value="ready_for_review">Ready for review</option>
+                            <option value="escalated_to_engineering">Escalated to engineering</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+
+                        <div class="action-row">
+                            <button id="save-status-button" class="primary-button" type="button">
+                                Save status
+                            </button>
+                            <button id="copy-report-button" class="secondary-button" type="button">
+                                Copy handoff report
+                            </button>
+                        </div>
+
+                        <p id="status-feedback" role="status" aria-live="polite"></p>
+                    </section>
+                </div>
+            </section>
+        </section>
+
+        <footer class="dashboard-footer">
+            ClearHandoff · Internal complaint management prototype
+        </footer>
+    </main>
+</body>
+</html>

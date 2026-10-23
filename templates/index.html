@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102a22">
+
+    <title>ClearHandoff — Get your issue understood</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/app.js" defer></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="/" aria-label="ClearHandoff home">
+            <span class="brand-mark">C</span>
+            <span>clearhandoff<span class="brand-period">.</span></span>
+        </a>
+
+        <div class="topbar-note">
+            <span class="status-dot"></span>
+            Support made clearer
+        </div>
+            <a class="topbar-link" href="/track">Track a complaint</a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    A BETTER WAY TO GET HELP
+                </p>
+
+                <h1>
+                    Your problem,<br>
+                    <span>properly understood.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Tell us what happened in your own words.
+                    We'll help organise the important details so
+                    our support team can investigate with less
+                    unnecessary back-and-forth.
+                </p>
+
+                <div class="trust-note">
+                    <span class="trust-icon">✓</span>
+                    <span>Your words matter. Unknown details can be skipped.</span>
+                </div>
+            </div>
+
+            <div class="hero-art" aria-hidden="true">
+                <div class="art-orbit orbit-one"></div>
+                <div class="art-orbit orbit-two"></div>
+
+                <div class="art-card">
+                    <div class="art-card-top">
+                        <span class="mini-logo">C</span>
+                        <span class="art-card-label">COMPLAINT FLOW</span>
+                    </div>
+
+                    <div class="art-check">✓</div>
+                    <div class="art-card-title">Every detail has a place.</div>
+                    <div class="art-card-copy">
+                        From your first message to the investigation.
+                    </div>
+
+                    <div class="art-progress">
+                        <span></span>
+                    </div>
+                    <div class="art-progress-caption">
+                        <span>YOUR STORY</span>
+                        <span>OUR NEXT STEP</span>
+                    </div>
+                </div>
+
+                <span class="floating-dot dot-one"></span>
+                <span class="floating-dot dot-two"></span>
+            </div>
+        </section>
+
+        <section class="workspace">
+            <aside class="steps-panel">
+                <p class="panel-label">HOW IT WORKS</p>
+
+                <div class="step active" id="step-one">
+                    <span class="step-number">01</span>
+                    <div>
+                        <h3>Tell us what happened</h3>
+                        <p>Start with your own explanation.</p>
+                    </div>
+                </div>
+
+                <div class="step-connector"></div>
+
+                <div class="step" id="step-two">
+                    <span class="step-number">02</span>
+                    <div>
+                        <h3>Add the details</h3>
+                        <p>Answer questions relevant to your issue.</p>
+                    </div>
+                </div>
+
+                <div class="step-connector"></div>
+
+                <div class="step" id="step-three">
+                    <span class="step-number">03</span>
+                    <div>
+                        <h3>Submit your complaint</h3>
+                        <p>Receive a reference number to keep.</p>
+                    </div>
+                </div>
+
+                <div class="privacy-card">
+                    <span class="privacy-icon">⌑</span>
+                    <h3>Your safety matters</h3>
+                    <p>
+                        Never share your password, PIN or one-time
+                        passcode. We don't need them to understand
+                        your complaint.
+                    </p>
+                </div>
+            </aside>
+
+            <section class="form-panel" aria-labelledby="form-title">
+                <div id="form-view">
+                    <div class="form-heading">
+                        <div>
+                            <p class="form-kicker" id="form-kicker">
+                                STEP 01 / YOUR STORY
+                            </p>
+                            <h2 id="form-title">What happened?</h2>
+                        </div>
+                        <span class="step-counter" id="step-counter">
+                            1 of 3
+                        </span>
+                    </div>
+
+                    <p class="form-intro" id="form-intro">
+                        Explain the issue as you experienced it.
+                        Include anything you think might help, even
+                        if you're not sure what's important.
+                    </p>
+
+                    <form id="complaint-form">
+                        <div id="message-section">
+                            <label for="complaint-message">
+                                Describe your problem
+                            </label>
+
+                            <textarea
+                                id="complaint-message"
+                                name="message"
+                                rows="7"
+                                maxlength="20000"
+                                placeholder="For example: I tried to make a withdrawal yesterday, my account was debited, but the money has not arrived..."
+                                required
+                            ></textarea>
+
+                            <div class="field-footnote">
+                                <span>Write in your own words. No technical language needed.</span>
+                                <span id="character-count">0 / 20,000</span>
+                            </div>
+
+                            <div id="question-area" hidden>
+                                <div class="question-heading">
+                                    <div>
+                                        <p class="form-kicker">A FEW MORE DETAILS</p>
+                                        <h3 id="question-title">
+                                            Help us understand the issue
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <p class="question-intro" id="question-intro">
+                                    Answer what you can. It's okay if you
+                                    don't know everything.
+                                </p>
+
+                                <div id="dynamic-questions"></div>
+
+                                <p class="skip-note">
+                                    <span>↳</span>
+                                    Don't know an answer? Leave it blank.
+                                    You can still submit.
+                                </p>
+                                                                <div class="contact-section">
+                                    <div class="question-heading">
+                                        <div>
+                                            <p class="form-kicker">HOW CAN WE REACH YOU?</p>
+                                            <h3>Your contact details</h3>
+                                        </div>
+                                    </div>
+
+                                    <p class="question-intro">
+                                        We use these only to update you about
+                                        this complaint. Please give at least an
+                                        email address or a phone number.
+                                    </p>
+
+                                    <div class="question-field">
+                                        <label for="contact-name">
+                                            Your name (optional)
+                                        </label>
+                                        <input class="question-input"
+                                               id="contact-name" type="text"
+                                               autocomplete="name"
+                                               maxlength="200"
+                                               placeholder="e.g. Ada Okafor">
+                                    </div>
+
+                                    <div class="question-field">
+                                        <label for="contact-email">Email address</label>
+                                        <input class="question-input"
+                                               id="contact-email" type="email"
+                                               autocomplete="email"
+                                               maxlength="254"
+                                               placeholder="you@example.com">
+                                    </div>
+
+                                    <div class="question-field">
+                                        <label for="contact-phone">Phone number</label>
+                                        <input class="question-input"
+                                               id="contact-phone" type="tel"
+                                               autocomplete="tel"
+                                               maxlength="30"
+                                               placeholder="e.g. 0801 234 5678">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="error-message" class="alert error-alert"
+                             role="alert" hidden></div>
+
+                        <div id="success-message" class="success-panel"
+                             role="status" hidden>
+                            <div class="success-icon">✓</div>
+                            <h2>Complaint submitted</h2>
+                            <p>
+                                Your complaint has been saved.
+                                Keep this reference number for your records.
+                            </p>
+                            <div class="reference-box">
+                                <span>YOUR REFERENCE NUMBER</span>
+                                <strong id="reference-number"></strong>
+                            </div>
+                            <p id="submission-status" class="submission-status"></p>
+                                                        <p class="muted">
+                                To check progress later, use your reference
+                                number and the email or phone you gave us.
+                            </p>
+                            <a class="button primary-button" href="/track">
+                                Track this complaint
+                            </a>
+                            <button type="button" class="button secondary-button"
+                                    id="new-complaint">
+                                Submit another complaint
+                            </button>
+                        </div>
+
+                        <div class="form-actions" id="form-actions">
+                            <span class="required-note">
+                                <span>*</span> Required
+                            </span>
+
+                            <button type="submit" class="button primary-button"
+                                    id="continue-button">
+                                <span id="button-label">Continue</span>
+                                <span aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-bottom-note" id="form-bottom-note">
+                    <span class="small-lock">⌑</span>
+                    Share only information relevant to your issue.
+                </div>
+            </section>
+        </section>
+
+        <section class="bottom-note">
+            <span class="bottom-note-mark">C</span>
+            <p>
+                Better information. Clearer handoffs.
+                <span>Built around understanding your issue.</span>
+            </p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>© 2026 ClearHandoff</span>
+        <span>Making support easier to understand.</span>
+    </footer>
+</body>
+</html>

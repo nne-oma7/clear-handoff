@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102a22">
+
+    <title>Track your complaint — ClearHandoff</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/track.js" defer></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="/" aria-label="ClearHandoff home">
+            <span class="brand-mark">C</span>
+            <span>clearhandoff<span class="brand-period">.</span></span>
+        </a>
+
+        <a class="topbar-link" href="/">Submit a complaint</a>
+    </header>
+
+    <main class="track-main">
+        <section class="form-panel track-panel">
+            <p class="form-kicker">CHECK YOUR STATUS</p>
+            <h2>Track your complaint</h2>
+            <p class="form-intro">
+                Enter your reference number and the email address or
+                phone number you gave us when you submitted.
+            </p>
+
+            <form id="track-form">
+                <div class="question-field">
+                    <label for="track-reference">Reference number</label>
+                    <input class="question-input" id="track-reference"
+                           type="text" autocomplete="off"
+                           placeholder="e.g. CH-000123" required>
+                </div>
+
+                <div class="question-field">
+                    <label for="track-contact">Email or phone number</label>
+                    <input class="question-input" id="track-contact"
+                           type="text" autocomplete="off"
+                           placeholder="The one you used on your complaint"
+                           required>
+                </div>
+
+                <div id="track-error" class="alert error-alert"
+                     role="alert" hidden></div>
+
+                <div class="form-actions">
+                    <span></span>
+                    <button type="submit" class="button primary-button"
+                            id="track-button">
+                        <span id="track-button-label">Check status</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+            </form>
+
+            <div id="track-result" class="success-panel" role="status" hidden>
+                <div class="success-icon">✓</div>
+                <h2 id="track-status-label"></h2>
+                <div class="reference-box">
+                    <span>REFERENCE</span>
+                    <strong id="track-result-reference"></strong>
+                </div>
+                <p id="track-message"></p>
+                <p class="muted" id="track-date"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>© 2026 ClearHandoff</span>
+        <span>Making support easier to understand.</span>
+    </footer>
+</body>
+</html>

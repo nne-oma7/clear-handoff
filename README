@@ -1,0 +1,45 @@
+# ClearHandoff
+
+A complaint-intake and engineering-handoff tool. Customers describe a problem in their own words, answer a few follow-up questions, and get a reference number. Support staff see a structured handoff report, including what is still missing, without having to chase the customer for basics.
+
+**Design principle:** the report never invents facts. The customer's original words are stored exactly as written, and missing details are flagged instead of guessed.
+
+## Features
+- Customer complaint form with issue detection and follow-up questions
+- Contact details required (email or phone), validated on the server
+- Customer tracking page: reference number + contact gives a status, nothing private
+- Staff dashboard: tickets, full handoff report, status updates, copy-to-clipboard
+- Staff login protecting the dashboard and all ticket data
+- 38 automated tests
+
+## Tech
+Python, FastAPI, SQLAlchemy, SQLite, vanilla JavaScript, pytest
+
+## Run it locally
+```
+pip install -r requirements.txt
+```
+Set the staff login (PowerShell):
+```
+$env:STAFF_USERNAME="your-username"
+$env:STAFF_PASSWORD="your-strong-password"
+```
+Start the app:
+```
+uvicorn main:app --reload
+```
+- Customers: http://127.0.0.1:8000/
+- Tracking: http://127.0.0.1:8000/track
+- Staff: http://127.0.0.1:8000/dashboard
+
+## Run the tests
+```
+pytest
+```
+
+## Known limitations (and what I'd build next)
+- Issue detection is keyword-based; a model-assisted classifier would handle typos and unusual wording
+- Staff login uses one shared credential; next would be per-staff accounts with hashed passwords and a sign-in page
+- No email/SMS notifications yet
+- SQLite is fine for a prototype; production would use Postgres
+- Needs HTTPS before any real deployment
