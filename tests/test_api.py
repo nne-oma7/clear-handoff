@@ -260,3 +260,8 @@ def test_unconfigured_login_blocks_everyone(anonymous_client, monkeypatch):
     monkeypatch.delenv("STAFF_PASSWORD")
     r = anonymous_client.get("/complaints", auth=("staff", "test-password"))
     assert r.status_code == 503
+
+def test_demo_switch_opens_dashboard_without_login(anonymous_client, monkeypatch):
+    monkeypatch.setenv("DEMO_OPEN_DASHBOARD", "1")
+    assert anonymous_client.get("/dashboard").status_code == 200
+    assert anonymous_client.get("/complaints").status_code == 200

@@ -1,15 +1,27 @@
 import os
 import secrets
+from typing import Optional
 
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-security = HTTPBasic()
+security = HTTPBasic(auto_error=False)
 
 
 def require_staff(
-    credentials: HTTPBasicCredentials = Depends(security)
+    credentials: Optional[HTTPBasicCredentials] = Depends(security)
 ):
+    # Demo switch: set DEMO_OPEN_DASHBOARD=1 to skip the staff login.
+    if os.environ.get("DEMO_OPEN_DASHBOARD") == "1":
+        return "demo"
+
+    if credentials is None:
+        raise HTTPException(
+            status_code=401,
+            detail="Not authenticated",
+            headers={"WWW-Authenticate": "Basic"}
+        )
+
     expected_username = os.environ.get("STAFF_USERNAME")
     expected_password = os.environ.get("STAFF_PASSWORD")
 
