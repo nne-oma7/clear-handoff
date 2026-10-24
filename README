@@ -1,19 +1,39 @@
 # ClearHandoff
 
-A complaint-intake and engineering-handoff tool. Customers describe a problem in their own words, answer a few follow-up questions, and get a reference number. Support staff see a structured handoff report, including what is still missing, without having to chase the customer for basics.
+### Complaints that don't get dropped.
 
-**Design principle:** the report never invents facts. The customer's original words are stored exactly as written, and missing details are flagged instead of guessed.
+Picture a customer who sends this message:
 
-## Features
-- Customer complaint form with issue detection and follow-up questions
-- Contact details required (email or phone), validated on the server
-- Customer tracking page: reference number + contact gives a status, nothing private
-- Staff dashboard: tickets, full handoff report, status updates, copy-to-clipboard
-- Staff login protecting the dashboard and all ticket data
-- 38 automated tests
+> *"i tried to withdraw my money yesterday and it failed and they still debited me please help"*
+
+A support agent reads it and has to ask: *How much? Which account? What time? Do you have a transaction reference?* The customer replies a few hours later with half the answers. The agent asks again. Eventually a ticket reaches an engineer with a vague summary, so the engineer asks the same questions again.
+
+Nobody in that chain did anything wrong. **The information was just collected in the wrong order and by the wrong person.** That is the problem ClearHandoff is built to fix.
+
+## What ClearHandoff does
+
+**For the customer,** it feels like being listened to:
+1. They describe the problem in their own words, with no forms full of dropdowns.
+2. ClearHandoff recognises the type of issue and asks only the follow-up questions that matter for it. Anything they don't know can be skipped.
+3. They get a reference number and can check their status later using that number and their contact details.
+
+**For the support and engineering team,** it feels like being handed a clean brief instead of a mystery:
+- The customer's original words, **stored exactly as written** and never rewritten.
+- The details they provided, organised.
+- A clear list of **what is still missing, and why it matters** ("helps support locate the transaction").
+- A one-click copy of the full engineering handoff report.
+- A status workflow, from received to resolved.
+
+## Design decisions I care about
+
+- **It never invents facts.** The handoff report separates what the customer *said* from what has been *verified*. Guesswork passed off as certainty is how investigations go wrong.
+- **Tracking leaks nothing.** A wrong reference and a wrong contact detail produce the exact same response, so nobody can use the tracking page to discover which tickets exist. It shows a friendly status and never exposes the complaint itself.
+- **The server decides what's valid.** Contact details, statuses and answers are all checked on the backend, so skipping the website and calling the API directly doesn't get around the rules.
+- **Staff data is locked.** The dashboard and every ticket endpoint need a login, and passwords are compared in constant time.
+- **38 automated tests** cover classification, validation, tracking privacy, status updates and access control.
 
 ## Tech
-Python, FastAPI, SQLAlchemy, SQLite, vanilla JavaScript, pytest
+Python · FastAPI · SQLAlchemy · SQLite · vanilla JavaScript · pytest
 
 ## Run it locally
 ```
@@ -24,7 +44,7 @@ Set the staff login (PowerShell):
 $env:STAFF_USERNAME="your-username"
 $env:STAFF_PASSWORD="your-strong-password"
 ```
-Start the app:
+Start it:
 ```
 uvicorn main:app --reload
 ```
@@ -32,14 +52,14 @@ uvicorn main:app --reload
 - Tracking: http://127.0.0.1:8000/track
 - Staff: http://127.0.0.1:8000/dashboard
 
-## Run the tests
-```
-pytest
-```
+Run the tests with `pytest`.
 
-## Known limitations (and what I'd build next)
-- Issue detection is keyword-based; a model-assisted classifier would handle typos and unusual wording
-- Staff login uses one shared credential; next would be per-staff accounts with hashed passwords and a sign-in page
-- No email/SMS notifications yet
-- SQLite is fine for a prototype; production would use Postgres
-- Needs HTTPS before any real deployment
+## Honest limitations (and what I'd build next)
+I'm still learning, and I'd rather be clear about where this prototype ends:
+- **Issue detection is keyword-based.** It handles common cases but not typos or unusual wording. A model-assisted classifier is the obvious next step.
+- **Staff login is one shared credential.** The next step is individual staff accounts with hashed passwords, roles and a sign-in page.
+- **No notifications yet.** Customers have to check the tracking page, and email or SMS updates would close that gap.
+- **SQLite is a prototype choice.** A real deployment would use Postgres.
+
+## Why I built this
+I'm an economics graduate teaching myself backend engineering. I wanted to build something that mirrors a real operational problem instead of another to-do app. ClearHandoff taught me API design, validation, authentication, privacy-aware design and testing, and I'm still improving it.
